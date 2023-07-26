@@ -29,5 +29,4 @@ pip install -m requirements.txt
 
 ```
 python parse_dars.py <path_to_application_pdf> <path_to_output_tsv>
-
 ```
