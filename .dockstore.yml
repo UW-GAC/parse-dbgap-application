@@ -1,0 +1,7 @@
+version: 1.2
+workflows:
+   - name: parse_dbgap_application
+     subclass: WDL
+     primaryDescriptorPath: /parse_dbgap_application.wdl
+     testParameterFiles:
+         - /parse_dbgap_application.json

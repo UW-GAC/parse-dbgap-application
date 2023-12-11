@@ -30,3 +30,11 @@ pip install -m requirements.txt
 ```
 python parse_dars.py <path_to_application_pdf> <path_to_output_tsv>
 ```
+
+
+## Updating the docker images
+
+```
+docker build -t uwgac/parse-dbgap-application:<tag> .
+docker push uwgac/parse-dbgap-application:<tag>
+```
