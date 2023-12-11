@@ -25,14 +25,14 @@ task extract_dars {
     command {
         python /usr/local/parse-dbgap-application/parse_dars.py \
             ~{application_pdf} \
-            dar_file.tsv
+            dars.tsv
     }
 
     output {
-        File dar_file = "dar_file.tsv"
+        File dar_file = "dars.tsv"
     }
 
     runtime {
-        docker: "uwgac/parse-dbgap-application:0.0.1"
+        docker: "uwgac/parse-dbgap-application:0.0.2"
     }
 }
