@@ -55,7 +55,6 @@ if __name__ == "__main__":
     pdf_file = args.infile
     outfile = args.outfile
 
-    import ipdb; ipdb.set_trace()
     # Read in all the text in the pdf.
     blocks = []
     with fitz.open(pdf_file) as doc:
