@@ -1,0 +1,5 @@
+version: 1.2
+workflows:
+   - name: parse_dbgap_application
+     subclass: WDL
+     primaryDescriptorPath: /parse_dbgap_application.wdl
