@@ -5,10 +5,10 @@ workflow parse_dbgap_application {
         File application_pdf
     }
     call extract_dars {
-        input: application_pdf = application_pdf
+        input: application_pdf=application_pdf
     }
     output {
-        File dar_file = extract_dars.dar_file
+        File dar_file=extract_dars.dar_file
     }
     meta {
         author: "Adrienne Stilp"
@@ -22,11 +22,11 @@ task extract_dars {
         File application_pdf
     }
 
-    command <<<
-        python /usr/local/parse_dbgap_application/parse_dars.py \
+    command {
+        python /usr/local/parse-dbgap-application/parse_dars.py \
             ~{application_pdf} \
-            ~{dar_file}
-    >>>
+            dar_file.tsv
+    }
 
     output {
         File dar_file = "dar_file.tsv"
