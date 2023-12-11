@@ -10,9 +10,4 @@ library(tidyverse)
 library(knitr)
 ```
 
-# Read in output file
-
-```{r}
-dars <- read_tsv("dars.tsv")
-print(dim(dars))
-```
+Dar report!
