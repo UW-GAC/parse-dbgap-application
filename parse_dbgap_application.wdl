@@ -7,8 +7,10 @@ workflow parse_dbgap_application {
     call extract_dars {
         input: application_pdf=application_pdf
     }
+    call render_report {}
     output {
         File dar_file=extract_dars.dar_file
+        File dar_report=render_report.dar_report
     }
     meta {
         author: "Adrienne Stilp"
@@ -32,6 +34,19 @@ task extract_dars {
         File dar_file = "dars.tsv"
     }
 
+    runtime {
+        docker: "uwgac/parse-dbgap-application:0.0.2"
+    }
+}
+
+
+task render_report {
+    command {
+        R -e "rmarkdown::render('/usr/local/parse-dbgap-application/dar_report.Rmd', output_dir='.')"
+    }
+    output {
+        File dar_report = "dar_report.html"
+    }
     runtime {
         docker: "uwgac/parse-dbgap-application:0.0.2"
     }
