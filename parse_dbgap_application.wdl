@@ -42,7 +42,8 @@ task extract_dars {
 
 task render_report {
     command {
-        R -e "rmarkdown::render('/usr/local/parse-dbgap-application/dar_report.Rmd', output_dir='.')"
+        cp /usr/local/parse-dbgap-application/dar_report.Rmd .
+        R -e "rmarkdown::render('dar_report.Rmd', params=list('dar_file'='dars.tsv'))"
     }
     output {
         File dar_report = "dar_report.html"
