@@ -7,7 +7,9 @@ workflow parse_dbgap_application {
     call extract_dars {
         input: application_pdf=application_pdf
     }
-    call render_report {}
+    call render_report {
+        input: dar_file=extract_dars.dar_file
+    }
     output {
         File dar_file=extract_dars.dar_file
         File dar_report=render_report.dar_report
@@ -41,9 +43,12 @@ task extract_dars {
 
 
 task render_report {
+    input {
+        File dar_file="dars.tsv"
+    }
     command {
         cp /usr/local/parse-dbgap-application/dar_report.Rmd .
-        R -e "rmarkdown::render('dar_report.Rmd', params=list('dar_file'='dars.tsv'))"
+        quarto render dar_report.Rmd -P dar_file:~{dar_file}
     }
     output {
         File dar_report = "dar_report.html"
