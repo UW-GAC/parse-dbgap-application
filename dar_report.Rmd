@@ -3,6 +3,8 @@ title: "DAR report"
 output:
     html_document:
         toc: true
+params:
+    dar_file: "dars.tsv"
 ---
 
 ```{r setup, include=FALSE}
@@ -10,4 +12,9 @@ library(tidyverse)
 library(knitr)
 ```
 
-Dar report!
+# Read in output file
+
+```{r}
+dars <- read_tsv(params$dar_file)
+print(dim(dars))
+```
