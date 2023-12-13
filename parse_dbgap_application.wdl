@@ -48,7 +48,7 @@ task render_report {
     }
     command {
         cp /usr/local/parse-dbgap-application/dar_report.Rmd .
-        quarto render dar_report.Rmd -P dar_file:~{dar_file}
+        R -e "rmarkdown::render('dar_report.Rmd', params=list(dar_file='~{dar_file}'))"
     }
     output {
         File dar_report = "dar_report.html"
