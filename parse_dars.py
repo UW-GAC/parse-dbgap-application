@@ -91,4 +91,7 @@ if __name__ == "__main__":
         "Abbreviation": "consent_group"
     })
 
+    # Replace newlines in study with spaces.
+    df.replace("\n", " ", regex=True, inplace=True)
+
     df.to_csv(outfile, sep="\t", index=False)
