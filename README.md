@@ -7,6 +7,17 @@ Right now, there is one script provided:
 
 ## Usage
 
+### On AnVIL
+
+See the [workflow on Dockstore](https://dockstore.org/my-workflows/github.com/UW-GAC/parse-dbgap-application).
+To run the workflow, you will need to upload the dbGaP application PDF to a Google bucket and provide the path to the PDF as an input to the workflow.
+The workflow runs two steps:
+
+1. Extract DARs into a text file.
+2. Render an Rmarkdown report with basic info about the requested DARs.
+
+### Local use
+
 * Clone the repository:
 
 ```
