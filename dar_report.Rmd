@@ -15,6 +15,34 @@ library(knitr)
 # Read in output file
 
 ```{r}
-dars <- read_tsv(params$dar_file)
-print(dim(dars))
+dars <- read_tsv(params$dar_file) %>%
+    arrange(accession)
+nrow(dars)
+```
+
+# New DARs
+
+```{r}
+tmp <- dars %>%
+    filter(is.na(DAR))
+nrow(tmp)
+tmp %>% kable()
+```
+
+# DARs with a COL modifier
+
+```{r}
+tmp <- dars %>%
+    filter(str_detect(consent_group, "COL"))
+nrow(tmp)
+tmp %>% kable()
+```
+
+# Existing DARs
+
+```{r}
+tmp <- dars %>%
+    filter(!is.na(DAR))
+nrow(tmp)
+tmp %>% kable()
 ```
