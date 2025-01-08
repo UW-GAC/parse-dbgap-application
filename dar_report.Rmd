@@ -46,3 +46,19 @@ tmp <- dars %>%
 nrow(tmp)
 tmp %>% kable()
 ```
+
+# Dates
+
+## Request date
+
+```{r}
+ggplot(dars, aes(request_date)) +
+    geom_histogram()
+```
+
+## Renewal date
+
+```{r}
+ggplot(dars, aes(last_renewal_date)) +
+    geom_histogram()
+```

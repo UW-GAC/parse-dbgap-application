@@ -7,6 +7,7 @@ import pandas as pd
 
 
 def parse_phs_blocks(blocks):
+    #import ipdb; ipdb.set_trace()
     phs = blocks[0]
     request_date_idx = [i for i, item in enumerate(blocks) if re.search("Request Date", item)]
     dar_list = []
@@ -23,6 +24,10 @@ def parse_phs_blocks(blocks):
             this_dar["DAR"] = m.string.split(" : ")[1]
         else:
             this_dar["DAR"] = None
+        # Get the request and renewal dates.
+        date_blocks = blocks[idx].replace(":\n", ": ").split("\n")
+        tmp = {k.strip(): v.strip() for k, v in (xx.split(":") for xx in date_blocks)}
+        this_dar.update(tmp)
         # Now find the consent group.
         j = idx
         try:
@@ -88,7 +93,9 @@ if __name__ == "__main__":
     # Convert to pandas data frame and write to tsv.
     df = pd.DataFrame(dars)
     df = df.rename(columns={
-        "Abbreviation": "consent_group"
+        "Abbreviation": "consent_group",
+        "Request Date": "request_date",
+        "Last Renewal Date": "last_renewal_date",
     })
 
     # Replace newlines in study with spaces.
