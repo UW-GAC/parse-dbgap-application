@@ -26,7 +26,7 @@ def parse_phs_blocks(blocks):
             this_dar["DAR"] = None
         # Get the request and renewal dates.
         date_blocks = blocks[idx].replace(":\n", ": ").split("\n")
-        tmp = {k: v for k, v in (xx.split(' : ') for xx in date_blocks)}
+        tmp = {k.strip(): v.strip() for k, v in (xx.split(":") for xx in date_blocks)}
         this_dar.update(tmp)
         # Now find the consent group.
         j = idx
