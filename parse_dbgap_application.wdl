@@ -54,6 +54,6 @@ task render_report {
         File dar_report = "dar_report.html"
     }
     runtime {
-        docker: "uwgac/parse-dbgap-application:0.2"
+        docker: "uwgac/parse-dbgap-application:0.2.1"
     }
 }
