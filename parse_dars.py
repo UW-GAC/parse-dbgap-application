@@ -67,7 +67,7 @@ if __name__ == "__main__":
             page_text = [x[4].strip() for x in page.get_text("blocks")]
             # Only keep the page if it has the "Project Request" header.
             if page_text[-2].startswith("Project Request\n") or page_text[-2].startswith("Project Renewal\n"):
-                blocks = blocks + page_text[:-3]
+                blocks = blocks + page_text[:-2]
     len(blocks)
 
     # Remove all rows before "Consent Group(s) Information"
