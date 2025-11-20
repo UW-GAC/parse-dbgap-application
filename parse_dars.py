@@ -7,7 +7,7 @@ import pandas as pd
 
 
 def parse_phs_blocks(blocks):
-    #import ipdb; ipdb.set_trace()
+    # import ipdb; ipdb.set_trace()
     phs = blocks[0]
     request_date_idx = [i for i, item in enumerate(blocks) if re.search("Request Date", item)]
     dar_list = []
@@ -19,7 +19,7 @@ def parse_phs_blocks(blocks):
         }
         # Check if the previous element contains a "DAR :" string.
         # If it is a new request, there is no DAR yet and this will not be present.
-        m = re.match("^DAR", blocks[idx-1])
+        m = re.match("^DAR", blocks[idx - 1])
         if m:
             this_dar["DAR"] = m.string.split(" : ")[1]
         else:
@@ -48,10 +48,9 @@ def parse_phs_blocks(blocks):
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(
-        prog='parse_dars',
-        description='Parse DARs from a dbGaP application PDF and write them to a tsv.',
+        prog="parse_dars",
+        description="Parse DARs from a dbGaP application PDF and write them to a tsv.",
     )
     parser.add_argument("infile", help="PDF of dbGaP application to parse")
     parser.add_argument("outfile", help="Output tsv file to write")
@@ -76,7 +75,7 @@ if __name__ == "__main__":
 
     # Find all rows containing a phs
     phs_regex = r"^phs\d{6}\.v\d+?\."
-    #regex = r"phs002719.v1.p1"
+    # regex = r"phs002719.v1.p1"
     phs_idx = [i for i, item in enumerate(blocks) if re.search(phs_regex, item)]
 
     # Create variables to store the beginning and ending indices for each phs.
@@ -86,17 +85,19 @@ if __name__ == "__main__":
     dars = []
     for i in range(len(idx_start)):
         # Get the blocks associated with this phs.
-        phs_blocks = blocks[(idx_start[i]):idx_end[i]]
+        phs_blocks = blocks[(idx_start[i]) : idx_end[i]]
         dar_list = parse_phs_blocks(phs_blocks)
         dars = dars + dar_list
 
     # Convert to pandas data frame and write to tsv.
     df = pd.DataFrame(dars)
-    df = df.rename(columns={
-        "Abbreviation": "consent_group",
-        "Request Date": "request_date",
-        "Last Renewal Date": "last_renewal_date",
-    })
+    df = df.rename(
+        columns={
+            "Abbreviation": "consent_group",
+            "Request Date": "request_date",
+            "Last Renewal Date": "last_renewal_date",
+        }
+    )
 
     # Replace newlines in study with spaces.
     df.replace("\n", " ", regex=True, inplace=True)
