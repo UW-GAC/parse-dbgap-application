@@ -37,7 +37,7 @@ task extract_dars {
     }
 
     runtime {
-        docker: "uwgac/parse-dbgap-application:0.2"
+        docker: "uwgac/parse-dbgap-application:0.2.1"
     }
 }
 
