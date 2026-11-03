@@ -13,11 +13,6 @@ def parse_phs_blocks(blocks):
     dar_list = []
     phs_info = phs.split(" : ")
 
-    if phs_info[0] == "phs000615.v1.p1":
-        import ipdb
-
-        ipdb.set_trace()
-
     for i, idx in enumerate(request_date_idx):
         this_dar = {
             "accession": phs_info[0],
