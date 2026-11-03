@@ -12,6 +12,7 @@ def parse_phs_blocks(blocks):
     request_date_idx = [i for i, item in enumerate(blocks) if re.search("Request Date", item)]
     dar_list = []
     phs_info = phs.split(" : ")
+
     for i, idx in enumerate(request_date_idx):
         this_dar = {
             "accession": phs_info[0],
@@ -22,8 +23,15 @@ def parse_phs_blocks(blocks):
         m = re.match("^DAR", blocks[idx - 1])
         if m:
             this_dar["DAR"] = m.string.split(" : ")[1]
+            # Check if closed out.
+            if "DAR closed out:" in blocks[idx - 2]:
+                this_dar["closed"] = True
+            else:
+                this_dar["closed"] = False
         else:
             this_dar["DAR"] = None
+            this_dar["closed"] = False
+
         # Get the request and renewal dates.
         date_blocks = blocks[idx].replace(":\n", ": ").split("\n")
         tmp = {k.strip(): v.strip() for k, v in (xx.split(":") for xx in date_blocks)}
@@ -35,6 +43,7 @@ def parse_phs_blocks(blocks):
         except IndexError:
             loop_end = len(blocks)
         done = False
+
         while not done:
             m = re.match("^Abbreviation :", blocks[j])
             if m:

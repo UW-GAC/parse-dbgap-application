@@ -40,9 +40,20 @@ tmp %>% kable()
 
 # Existing DARs
 
+## Still requested
 ```{r}
 tmp <- dars %>%
-    filter(!is.na(DAR))
+    filter(!is.na(DAR)) %>%
+    filter(!closed)
+nrow(tmp)
+tmp %>% kable()
+```
+
+## Closed
+```{r}
+tmp <- dars %>%
+    filter(!is.na(DAR)) %>%
+    filter(closed)
 nrow(tmp)
 tmp %>% kable()
 ```
